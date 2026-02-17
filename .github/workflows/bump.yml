@@ -1,0 +1,26 @@
+name: Deploy workflow document for your MCP server
+
+permissions:
+  contents: read
+  pull-requests: write
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-workflow-document:
+    if: ${{ github.event_name == 'push' }}
+    name: Deploy workflow document for MCP server on Bump.sh
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Deploy workflow document
+        uses: bump-sh/github-action@v1
+        with:
+          command: deploy
+          mcp_server: weather-saint-marcellin
+          token: ${{secrets.BUMP_TOKEN}}
+          file: weather-v2.yml

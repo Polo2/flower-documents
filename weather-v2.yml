@@ -44,7 +44,7 @@ flows:
       snowfall: $steps.get_weather_current.outputs.snowfall
 
   - id: weather_forecast
-    description: Get the weather forecast for a specific city
+    description: Get the weather forecast for a specific city (for example St Marcellin)
     inputs:
       properties:
         city:
