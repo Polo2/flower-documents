@@ -1,0 +1,277 @@
+flower: "0.1"
+id: knights-of-the-roundtable
+title: Knights of the Round Table
+
+flows:
+  - id: king_arthur
+    description: King Arthur
+    inputs:
+      properties:
+        name:
+          type: string
+
+    steps:
+      - id: get_king_arthur
+
+    outputs:
+      movie: $steps.king_arthur.kaamelot
+
+  - id: bedivere
+    description: Bédivère, chevalier qui restitue l'épée Excalibur à la Fée Viviane
+    inputs:
+      properties:
+        name:
+          type: string
+
+    steps:
+      - id: get_bedivere
+
+    outputs:
+      sword: $steps.bedivere.excalibur
+
+  - id: bohort
+    description: Bohort, cousin de Lancelot, un des chevaliers à réussir la quête du Graal
+    inputs:
+      properties:
+        name:
+          type: string
+
+    steps:
+      - id: get_bohort
+
+    outputs:
+      graal: $steps.bohort.quest
+
+  - id: caradoc
+    description: Caradoc Freichfras, personnage central du livre La Vie de Caradoc
+    inputs:
+      properties:
+        name:
+          type: string
+
+    steps:
+      - id: get_caradoc
+
+    outputs:
+      story: $steps.caradoc.vie
+
+  - id: claudin
+    description: Claudin, fils de Claudas de la Terre Déserte, il achève la quête du Graal
+    inputs:
+      properties:
+        name:
+          type: string
+
+    steps:
+      - id: get_claudin
+
+    outputs:
+      graal: $steps.claudin.completion
+
+  - id: cliges
+    description: Cligès, héros du roman de Chrétien de Troyes Cligès ou la Fausse morte
+    inputs:
+      properties:
+        name:
+          type: string
+
+    steps:
+      - id: get_cliges
+
+    outputs:
+      romance: $steps.cliges.fausse_morte
+
+  - id: erec
+    description: Érec, fils du Roi Lac, époux d'Énide, héros du roman Érec et Énide
+    inputs:
+      properties:
+        name:
+          type: string
+
+    steps:
+      - id: get_erec
+
+    outputs:
+      romance: $steps.erec.enide
+
+  - id: galahad
+    description: Galaad ou Galahad, fils de Lancelot du Lac, un des chevaliers qui contemplent le Graal
+    inputs:
+      properties:
+        name:
+          type: string
+
+    steps:
+      - id: get_galahad
+
+    outputs:
+      graal: $steps.galahad.vision
+
+  - id: gareth
+    description: Gareth ou Gahériet, fils du roi Lot d'Orcanie, frère de Gauvain, et neveu du roi Arthur
+    inputs:
+      properties:
+        name:
+          type: string
+
+    steps:
+      - id: get_gareth
+
+    outputs:
+      lineage: $steps.gareth.orcanie
+
+  - id: gawain
+    description: Gauvain, fils du roi Lot d'Orcanie et neveu du roi Arthur, l'un des principaux chevaliers de la Table Ronde
+    inputs:
+      properties:
+        name:
+          type: string
+
+    steps:
+      - id: get_gawain
+
+    outputs:
+      honor: $steps.gawain.principal
+
+  - id: girflet
+    description: Girflet ou Jaufré, fils du roi Do, héros du Roman de Jaufré
+    inputs:
+      properties:
+        name:
+          type: string
+
+    steps:
+      - id: get_girflet
+
+    outputs:
+      story: $steps.girflet.jaufre
+
+  - id: hector
+    description: Hector des Mares, fils illégitime du roi Ban de Bénoïc, demi-frère de Lancelot
+    inputs:
+      properties:
+        name:
+          type: string
+
+    steps:
+      - id: get_hector
+
+    outputs:
+      lineage: $steps.hector.mares
+
+  - id: keu
+    description: Keu le sénéchal, frère nourricier d'Arthur
+    inputs:
+      properties:
+        name:
+          type: string
+
+    steps:
+      - id: get_keu
+
+    outputs:
+      role: $steps.keu.senechal
+
+  - id: gliglois
+    description: Gliglois, dans le roman éponyme
+    inputs:
+      properties:
+        name:
+          type: string
+
+    steps:
+      - id: get_gliglois
+
+    outputs:
+      story: $steps.gliglois.roman
+
+  - id: lancelot
+    description: Lancelot du Lac, le meilleur chevalier du monde, fils du roi Ban de Bénoïc
+    inputs:
+      properties:
+        name:
+          type: string
+
+    steps:
+      - id: get_lancelot
+
+    outputs:
+      honor: $steps.lancelot.meilleur
+
+  - id: leodagan
+    description: Léodagan, roi de Carmélide, père de la reine Guenièvre
+    inputs:
+      properties:
+        name:
+          type: string
+
+    steps:
+      - id: get_leodagan
+
+    outputs:
+      kingdom: $steps.leodagan.carmelide
+
+  - id: lionel
+    description: Lionel, fils de Bohort de Gaunes et frère de Bohort le Jeune, cousin de Lancelot
+    inputs:
+      properties:
+        name:
+          type: string
+
+    steps:
+      - id: get_lionel
+
+    outputs:
+      lineage: $steps.lionel.gaunes
+
+  - id: mordred
+    description: Mordred, fils adultère d'Arthur et de sa demi-sœur, assassin de son père
+    inputs:
+      properties:
+        name:
+          type: string
+
+    steps:
+      - id: get_mordred
+
+    outputs:
+      tragedy: $steps.mordred.betrayal
+
+  - id: perceval
+    description: Perceval le Gallois, un des chevaliers qui trouvent le Graal
+    inputs:
+      properties:
+        name:
+          type: string
+
+    steps:
+      - id: get_perceval
+
+    outputs:
+      graal: $steps.perceval.gallois
+
+  - id: tristan
+    description: Tristan, héros du conte Tristan et Iseut
+    inputs:
+      properties:
+        name:
+          type: string
+
+    steps:
+      - id: get_tristan
+
+    outputs:
+      romance: $steps.tristan.iseut
+
+  - id: yvain
+    description: Yvain le Preux, le Chevalier au lion, fils du roi Urien
+    inputs:
+      properties:
+        name:
+          type: string
+
+    steps:
+      - id: get_yvain
+
+    outputs:
+      companion: $steps.yvain.lion
