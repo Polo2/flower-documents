@@ -1,0 +1,45 @@
+flower: "0.1"
+id: chuck-norris-with-tools
+title: Chuck Norris with tools
+description: >
+  This flow allows you to get a random Chuck Norris joke.
+
+flows:
+  - id: chuck_norris_by_category
+    description: Get a Chuck Norris joke with a given category
+    inputs:
+      required:
+        - category
+      properties:
+        category:
+          type: string
+          description: The category of the Chuck Norris joke. accessible by https://api.chucknorris.io/jokes/categories
+          enum:
+            - animal
+            - career
+            - celebrity
+            - dev
+            - explicit
+            - fashion
+            - food
+            - history
+            - money
+            - movie
+            - music
+            - political
+            - religion
+            - science
+            - sport
+            - travel
+    steps:
+      - id: get_chuck_norris_joke_with_category
+        request:
+          method: GET
+          url: https://api.chucknorris.io/jokes/random
+          query:
+            category: $inputs.category
+        outputs:
+          url: $response.body.url
+          value: $response.body.value
+    outputs:
+      sentence: $steps.get_chuck_norris_joke_with_category.outputs.value
