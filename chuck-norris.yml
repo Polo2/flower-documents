@@ -40,6 +40,25 @@ flows:
             category: $inputs.category
         outputs:
           url: $response.body.url
-          value: $response.body.value
+          sentence: $response.body.value
+        actions:
+          - when: $response.body.value == ''
+            do: end
+      - id: improve_sentence_with_deepl
+        request:
+          method: POST
+          url: https://api-free.deepl.com//v2/write/rephrase
+          headers:
+            Authorization: DeepL-Auth-Key ${secrets.DEEPL_API_KEY}
+          body:
+            text: $steps.get_chuck_norris_joke_with_category.outputs.sentence
+            target_lang: fr
+            writing_style: academic
+            tone: enthusiastic
+        outputs:
+          detected_source_language: $response.body.improvements.0.detected_source_language
+          improved_sentence: $response.body.improvements.0.text
     outputs:
       sentence: $steps.get_chuck_norris_joke_with_category.outputs.value
+      improved_sentence: $steps.improve_sentence_with_deepl.outputs.improved_sentence
+      detected_source_language: $steps.improve_sentence_with_deepl.outputs.detected_source_language
