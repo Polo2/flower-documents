@@ -50,11 +50,13 @@ flows:
           url: https://api-free.deepl.com//v2/write/rephrase
           headers:
             Authorization: DeepL-Auth-Key ${secrets.DEEPL_API_KEY}
-          body:
-            text: $steps.get_chuck_norris_joke_with_category.outputs.sentence
-            target_lang: fr
-            writing_style: academic
-            tone: enthusiastic
+          body: |
+            {
+              "text": [{$steps.get_chuck_norris_joke_with_category.outputs.sentence}]
+              "target_lang": "fr",
+              "writing_style": "academic",
+              "tone": "enthusiastic"
+            }
         outputs:
           detected_source_language: $response.body.improvements.0.detected_source_language
           improved_sentence: $response.body.improvements.0.text
