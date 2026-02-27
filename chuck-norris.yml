@@ -1,0 +1,66 @@
+flower: "0.1"
+id: chuck-norris-with-tools
+title: Chuck Norris with tools
+description: >
+  This flow allows you to get a random Chuck Norris joke.
+
+flows:
+  - id: chuck_norris_by_category
+    description: Get a Chuck Norris joke with a given category
+    inputs:
+      required:
+        - category
+      properties:
+        category:
+          type: string
+          description: The category of the Chuck Norris joke. accessible by https://api.chucknorris.io/jokes/categories
+          enum:
+            - animal
+            - career
+            - celebrity
+            - dev
+            - explicit
+            - fashion
+            - food
+            - history
+            - money
+            - movie
+            - music
+            - political
+            - religion
+            - science
+            - sport
+            - travel
+    steps:
+      - id: get_chuck_norris_joke_with_category
+        request:
+          method: GET
+          url: https://api.chucknorris.io/jokes/random
+          query:
+            category: $inputs.category
+        outputs:
+          url: $response.body.url
+          sentence: $response.body.value
+        actions:
+          - when: $response.body.value == ''
+            do: end
+      - id: improve_sentence_with_deepl
+        request:
+          method: POST
+          url: https://api-free.deepl.com//v2/write/rephrase
+          headers:
+            Authorization: DeepL-Auth-Key ${secrets.DEEPL_API_KEY}
+          body: |
+            {
+              "text": [{$steps.get_chuck_norris_joke_with_category.outputs.sentence}]
+              "target_lang": "fr",
+              "writing_style": "academic",
+              "tone": "enthusiastic"
+            }
+        outputs:
+          detected_source_language: $response.body.improvements.0.detected_source_language
+          improved_sentence: $response.body.improvements.0.text
+    outputs:
+      sentence: $steps.get_chuck_norris_joke_with_category.outputs.value
+      improved_sentence: $steps.improve_sentence_with_deepl.outputs.improved_sentence
+      detected_source_language: $steps.improve_sentence_with_deepl.outputs.detected_source_language
