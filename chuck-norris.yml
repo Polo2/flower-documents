@@ -1,0 +1,68 @@
+flower: "0.1"
+id: chuck-norris-with-tools
+title: Chuck Norris with tools
+description: >
+  This flow allows you to get a random Chuck Norris joke.
+
+flows:
+  - id: chuck_norris_by_category
+    description: Get a Chuck Norris joke with a given category
+    inputs:
+      required:
+        - category
+      properties:
+        category:
+          type: string
+          description: The category of the Chuck Norris joke. accessible by https://api.chucknorris.io/jokes/categories
+          enum:
+            - animal
+            - career
+            - celebrity
+            - dev
+            - explicit
+            - fashion
+            - food
+            - history
+            - money
+            - movie
+            - music
+            - political
+            - religion
+            - science
+            - sport
+            - travel
+    steps:
+      - id: get_chuck_norris_joke_with_category
+        request:
+          method: GET
+          url: https://api.chucknorris.io/jokes/random
+          query:
+            category: $inputs.category
+        outputs:
+          url: $response.body.url
+          sentence: $response.body.value
+        # actions:
+        #   - when: $response.body.value == ''
+        #     do: end
+      - id: translate_sentence_with_deepl
+        request:
+          method: POST
+          url: https://api-free.deepl.com/v2/translate
+          headers:
+            Authorization: DeepL-Auth-Key $secrets.DEEPL_API_KEY
+          body: |
+            {
+              "text": [
+                "$steps.get_chuck_norris_joke_with_category.outputs.sentence"
+              ],
+              "target_lang": "FR",
+              "context": "Chuck Norris is a famous actor and comedian, this is a joke about him. Translation may overtranslate the joke.",
+              "formality": "prefer_more"
+            }
+        outputs:
+          detected_source_language: $response.body.translations.0.detected_source_language
+          french_fact: $response.body.translations.0.text
+    outputs:
+      sentence: $steps.get_chuck_norris_joke_with_category.outputs.sentence
+      detected_source_language: $steps.translate_sentence_with_deepl.outputs.detected_source_language
+      french_fact: $steps.translate_sentence_with_deepl.outputs.french_fact
