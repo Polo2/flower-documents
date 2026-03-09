@@ -41,24 +41,28 @@ flows:
         outputs:
           url: $response.body.url
           sentence: $response.body.value
-        actions:
-          - when: $response.body.value == ''
-            do: end
-      - id: improve_sentence_with_deepl
+        # actions:
+        #   - when: $response.body.value == ''
+        #     do: end
+      - id: translate_sentence_with_deepl
         request:
           method: POST
-          url: https://api-free.deepl.com//v2/write/rephrase
+          url: https://api-free.deepl.com/v2/translate
           headers:
-            Authorization: DeepL-Auth-Key ${secrets.DEEPL_API_KEY}
-          body:
-            text: $steps.get_chuck_norris_joke_with_category.outputs.sentence
-            target_lang: fr
-            writing_style: academic
-            tone: enthusiastic
+            Authorization: DeepL-Auth-Key $secrets.DEEPL_API_KEY
+          body: |
+            {
+              "text": [
+                "$steps.get_chuck_norris_joke_with_category.outputs.sentence"
+              ],
+              "target_lang": "FR",
+              "context": "Chuck Norris is a famous actor and comedian, this is a joke about him. Translation may overtranslate the joke.",
+              "formality": "prefer_more"
+            }
         outputs:
-          detected_source_language: $response.body.improvements.0.detected_source_language
-          improved_sentence: $response.body.improvements.0.text
+          detected_source_language: $response.body.translations.0.detected_source_language
+          french_fact: $response.body.translations.0.text
     outputs:
-      sentence: $steps.get_chuck_norris_joke_with_category.outputs.value
-      improved_sentence: $steps.improve_sentence_with_deepl.outputs.improved_sentence
-      detected_source_language: $steps.improve_sentence_with_deepl.outputs.detected_source_language
+      sentence: $steps.get_chuck_norris_joke_with_category.outputs.sentence
+      detected_source_language: $steps.translate_sentence_with_deepl.outputs.detected_source_language
+      french_fact: $steps.translate_sentence_with_deepl.outputs.french_fact
