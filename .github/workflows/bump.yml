@@ -17,10 +17,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Deploy workflow document
+      - name: Deploy weather workflow document
         uses: bump-sh/github-action@v1
         with:
           command: deploy
           mcp_server: weather-saint-marcellin
           token: ${{secrets.BUMP_TOKEN}}
           file: weather-v2.yml
+      - name: Deploy Chuck Norris workflow document
+        uses: bump-sh/github-action@v1
+        with:
+          command: deploy
+          mcp_server: chuck-norris-facts
+          token: ${{secrets.BUMP_TOKEN}}
+          file: chuck-norris.yml
