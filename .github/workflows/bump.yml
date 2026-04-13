@@ -31,3 +31,10 @@ jobs:
           mcp_server: chuck-norris-facts
           token: ${{secrets.BUMP_TOKEN}}
           file: chuck-norris.yml
+      - name: Deploy Wikimedia workflow document (Arazzo)
+        uses: bump-sh/github-action@v1
+        with:
+          command: deploy
+          mcp_server: mathematica-arazzo-github-action
+          token: ${{secrets.BUMP_TOKEN}}
+          file: arazzo/wikimedia.arazzo.json
