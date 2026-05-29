@@ -47,22 +47,22 @@ flows:
           url: https://api-free.deepl.com/v2/translate
           headers:
             Authorization: DeepL-Auth-Key $secrets.DEEPL_API_KEY
-          body: |
-            {
-              "text": [
-                "$steps.get_chuck_norris_joke_with_category.outputs.sentence"
-              ],
-              "target_lang": "FR",
-              "context": "Chuck Norris is a famous actor and comedian, this is a joke about him. Translation may overtranslate the joke.",
-              "formality": "prefer_more"
-            }
+          # body: |
+          #   {
+          #     "text": [
+          #       "$steps.get_chuck_norris_joke_with_category.outputs.sentence"
+          #     ],
+          #     "target_lang": "FR",
+          #     "context": "Chuck Norris is a famous actor and comedian, this is a joke about him. Translation may overtranslate the joke.",
+          #     "formality": "prefer_more"
+          #   }
           # Note: ci-dessous, cette syntaxe yaml devrait fonctionner, mais le format array pour text n'est pas correctement parsé:
           # l'API DeepL était appelé avec la string "$steps.get_chuck_norris_joke_with_category.outputs.sentence" (pas d'interprétation de la variable)
-          # body:
-          #   text: ["$steps.get_chuck_norris_joke_with_category.outputs.sentence"]
-          #   target_lang: "FR"
-          #   context: "Chuck Norris is a famous actor and comedian, this is a joke about him. Translation may overtranslate the joke."
-          #   formality: "prefer_more"
+          body:
+            text: ["$steps.get_chuck_norris_joke_with_category.outputs.sentence"]
+            target_lang: "FR"
+            context: "Chuck Norris is a famous actor and comedian, this is a joke about him. Translation may overtranslate the joke."
+            formality: "prefer_more"
         outputs:
           detected_source_language: $response.body.translations.0.detected_source_language
           french_fact: $response.body.translations.0.text
